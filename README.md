@@ -46,6 +46,8 @@ HRMSForge is a production-grade, enterprise-level QA automation framework built 
 
 Sohail Ahmed Mohammed - QA Automation Engineer
 
-[LinkedIn](https://linkedin.com/in/mohammed-sohail-ahmed-a47a87196)
+- [LinkedIn](https://linkedin.com/in/mohammed-sohail-ahmed-a47a87196)
 
-[GitHub](https://github.com/sohail3031)
+- [GitHub](https://github.com/sohail3031)
+
+- [Portfolio](https://sohail3031.github.io/sohail-ahmed-portfolio/)
