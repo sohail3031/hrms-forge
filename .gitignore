@@ -141,3 +141,43 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
+
+# Playwright
+/test-results/
+/playwright-report/
+/playwright/.cache/
+traces/
+videos/
+screenshots/
+
+# Allure
+allure-results/
+allure-reports
+
+# Logs
+logs/
+*.logs
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Auth State
+fixtures/auth/
+
+# TypeScript build output
+dist/
+
+# k6 results
+tests/performance/k6/results/
+
+# SO files
+.DS_Store
+Thumns.db
+
+# ID
+.vscode/settings.json
+.idea/
+*.suo
+*.user

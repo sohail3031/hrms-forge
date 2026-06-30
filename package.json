@@ -1,0 +1,54 @@
+{
+  "name": "hrms-forge",
+  "version": "0.1.0",
+  "description": "Enterprise-grade Playwright TypeScript QA Automation Framework for OrangeHRM HRMS",
+  "author": "Sohail Ahmed Mohammed",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "test": "playwright test",
+    "test:smoke": "playwright test --grep @smoke",
+    "test:regression": "playwright test --grep @regression",
+    "test:api": "playwright test --grep @api",
+    "test:accessibility": "playwright test --grep @accessibility",
+    "test:visual": "playwright test --grep @visual",
+    "test:chromium": "playwright test --project=chromium",
+    "test:firefox": "playwright test --project=firefox",
+    "test:webkit": "playwright test --project=webkit",
+    "test:mobilechrome": "playwright test --project=\"Mobile  Chrome\"",
+    "test:mobilewebkit": "playwright test --project=\"Mobile Webkit\"",
+    "test:edge": "playwright test --project=edge",
+    "test:chrome": "playwright test --project=chrome",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
+    "test:ui": "playwright test --ui",
+    "report": "allure generate allure-results --clean -o allure-report && allure open allure-report",
+    "report:playwright": "playwright show-report",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
+    "format": "prettier --write .",
+    "format:check": "pritter --check .",
+    "type-ckeck": "tsc --noEmit",
+    "clean": "rimraf allure-results allure-report playwright-report test-results log screenshots videos traces"
+  },
+  "keywords": [
+    "playwright",
+    "typescript",
+    "qa-automation",
+    "sdet",
+    "organgehrm",
+    "accessibility",
+    "k6",
+    "allure"
+  ],
+  "devDependencies": {
+    "rimraf": "^6.1.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^6.0.3"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2"
+  }
+}
