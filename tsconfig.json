@@ -1,0 +1,42 @@
+{
+  "compilerOptions": {
+    "target": "es2022",
+    "module": "commonjs",
+    "lib": ["ES2022", "DOM"],
+    "strict": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "outDir": "./dist",
+    "rootDir": "./",
+    "baseUrl": ".",
+    "paths": {
+      "@pages/*": ["pages/*"],
+      "@fixtues/*": ["fixtures/*"],
+      "@utils/*": ["utils/*"],
+      "@helpers/*": ["helpers/*"],
+      "@api/*": ["api/*"],
+      "@data/*": ["data/*"],
+      "@config/*": ["config/*"]
+    },
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "exactOptionalPropertyTypes": false
+  },
+  "include": [
+    "tests/**/*.ts",
+    "pages/**/*.ts",
+    "fixtures/**/*.ts",
+    "utils/**/*.ts",
+    "helpers/**/*.ts",
+    "api/**/*.ts",
+    "config/**/*.ts",
+    "global-setup/**/*.ts",
+    "global-teardown/**/*.ts",
+    "components/**/*.ts"
+  ],
+  "exclude": ["node_modules", "dist", "tests/performance"]
+}
