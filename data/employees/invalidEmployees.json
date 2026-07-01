@@ -1,0 +1,33 @@
+{
+    "description": "Invalid employee data for negative test scenarios",
+    "scenarios": [
+        {
+            "id": "INVALID-EMP-001",
+            "scenario": "Missing first name",
+            "data": {
+                "firstName": "",
+                "lastName": "TestUser"
+            },
+            "expectedError": "Required"
+        },
+        {
+            "id": "INVALID-EMP-002",
+            "scenario": "Missing last name",
+            "data": {
+                "firstName": "TestUser",
+                "lastName": ""
+            },
+            "expectedError": "Required"
+        },
+        {
+            "id": "INVALID-EMP-003",
+            "scenario": "Duplicate employee ID",
+            "data": {
+                "firstName": "Test",
+                "lastName": "User",
+                "employeeId": "DUPLICATE"
+            },
+            "expectedError": "Employee Id already exists"
+        }
+    ]
+}

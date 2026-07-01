@@ -192,3 +192,11 @@ fixtures/auth/*.json
 
 # But keep the directory itself
 !fixtures/auth/.gitkeep
+
+# General output folders
+reports/
+logs/
+tests/performance/k6/results/
+
+# Docker
+docker/*.log
