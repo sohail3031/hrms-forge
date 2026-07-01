@@ -177,7 +177,8 @@ tests/performance/k6/results/
 Thumns.db
 
 # ID
-.vscode/settings.json
+.vscode/*
+!.vscode/extensions.json
 .idea/
 *.suo
 *.user

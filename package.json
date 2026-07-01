@@ -26,7 +26,7 @@
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
     "format": "prettier --write .",
-    "format:check": "pritter --check .",
+    "format:check": "prettier --check .",
     "type-ckeck": "tsc --noEmit",
     "clean": "rimraf allure-results allure-report playwright-report test-results log screenshots videos traces"
   },
@@ -43,8 +43,15 @@
   "devDependencies": {
     "@playwright/test": "^1.61.1",
     "@types/node": "^26.0.1",
+    "@typescript-eslint/eslint-plugin": "^8.62.1",
+    "@typescript-eslint/parser": "^8.62.1",
     "allure-commandline": "^2.43.0",
     "allure-playwright": "^3.10.2",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-playwright": "^2.10.4",
+    "eslint-plugin-prettier": "^5.5.6",
+    "prettier": "^3.9.4",
     "rimraf": "^6.1.3",
     "ts-node": "^10.9.2",
     "typescript": "^6.0.3"
