@@ -181,3 +181,13 @@ Thumns.db
 .idea/
 *.suo
 *.user
+
+# Playwright
+/blob-report/
+/playwright/.auth/
+
+# Auth state files
+fixtures/auth/*.json
+
+# But keep the directory itself
+!fixtures/auth/.gitkeep

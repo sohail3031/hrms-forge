@@ -17,10 +17,7 @@
     "test:chromium": "playwright test --project=chromium",
     "test:firefox": "playwright test --project=firefox",
     "test:webkit": "playwright test --project=webkit",
-    "test:mobilechrome": "playwright test --project=\"Mobile  Chrome\"",
-    "test:mobilewebkit": "playwright test --project=\"Mobile Webkit\"",
-    "test:edge": "playwright test --project=edge",
-    "test:chrome": "playwright test --project=chrome",
+    "test:mobile": "playwright test --project=mobile-chrome",
     "test:headed": "playwright test --headed",
     "test:debug": "playwright test --debug",
     "test:ui": "playwright test --ui",
@@ -44,6 +41,10 @@
     "allure"
   ],
   "devDependencies": {
+    "@playwright/test": "^1.61.1",
+    "@types/node": "^26.0.1",
+    "allure-commandline": "^2.43.0",
+    "allure-playwright": "^3.10.2",
     "rimraf": "^6.1.3",
     "ts-node": "^10.9.2",
     "typescript": "^6.0.3"
