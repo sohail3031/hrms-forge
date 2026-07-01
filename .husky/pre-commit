@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🔍 Running pre-commit checks..."
+
+# Step 1: Run lint-staged (ESLint + Prettier on staged files only)
+echo "📋 Linting staged files..."
+npx lint-staged
+
+# Step 2: TypeScript type check (entire project)
+echo "🔷 Running TypeScript type check..."
+npx tsc --noEmit
+
+echo "✅ All pre-commit checks passed!"
