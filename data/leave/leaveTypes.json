@@ -1,0 +1,20 @@
+{
+    "description": "Leave type reference data for OrangeHRM demo",
+    "types": [
+        {
+            "name": "Annual Leave",
+            "entitlementDays": 14,
+            "carryForward": true
+        },
+        {
+            "name": "Casual Leave",
+            "entitlementDays": 7,
+            "carryForward": false
+        },
+        {
+            "name": "Medical Leave",
+            "entitlementDays": 7,
+            "carryForward": false
+        }
+    ]
+}

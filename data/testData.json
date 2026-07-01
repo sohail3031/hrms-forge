@@ -1,0 +1,27 @@
+{
+    "baseUrl": "https://opensource-demo.orangehrmlive.com",
+    "apiBaseUrl": "https://opensource-demo.orangehrmlive.com/web/index.php/api/v2",
+    "credentials": {
+        "admin": {
+            "username": "Admin",
+            "role": "Administrator",
+            "description": "Full system access"
+        },
+        "invalidUser": {
+            "username": "invalid_user",
+            "password": "wrongpassword",
+            "role": "None",
+            "expectedBehaviour": "Login rejected with invalid credentionals error"
+        }
+    },
+    "timeouts": {
+        "default": 30000,
+        "navigation": 30000,
+        "action": 15000,
+        "assertion": 10000
+    },
+    "pagination": {
+        "defaultPageSize": 10,
+        "maxPageSize": 100
+    }
+}
