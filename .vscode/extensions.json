@@ -1,0 +1,8 @@
+{
+    "recommendations": [
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-esline",
+        "ms-playwright.playwright",
+        "streetsidesoftware.code-spell-checker"
+    ]
+}

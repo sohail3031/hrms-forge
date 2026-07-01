@@ -1,24 +1,21 @@
-import { defineConfig, devices } from "@playwright/test";
-import * as dotenv from "dotenv";
-import * as path from "path";
+import { defineConfig, devices } from '@playwright/test';
+import * as dotenv from 'dotenv';
+import * as path from 'path';
 
 // Load environment variables
-dotenv.config({ path: path.resolve(__dirname, ".env") });
+dotenv.config({ path: path.resolve(__dirname, '.env') });
 
 // Environment helpers
-const BASE_URL =
-  process.env.BASE_URL || "https://opensource-demo.orangehrmlive.com";
-const HEADLESS = process.env.HEADLESS !== "false";
+const BASE_URL = process.env.BASE_URL || 'https://opensource-demo.orangehrmlive.com';
+const HEADLESS = process.env.HEADLESS !== 'false';
 const WORKERS = process.env.WORKERS ? parseInt(process.env.WORKERS) : 4;
-const TIMEOUT = process.env.DEFAULT_TIME
-  ? parseInt(process.env.DEFAULT_TIME)
-  : 30000;
+const TIMEOUT = process.env.DEFAULT_TIME ? parseInt(process.env.DEFAULT_TIME) : 30000;
 const IS_CI = !!process.env.CI;
 
 export default defineConfig({
   // Test discovery
-  testDir: "./tests",
-  testMatch: "**/*.spec.ts",
+  testDir: './tests',
+  testMatch: '**/*.spec.ts',
 
   // Global timeout settings
   timeout: TIMEOUT,
@@ -33,24 +30,24 @@ export default defineConfig({
   workers: IS_CI ? 2 : WORKERS,
 
   // Global setup and teardown
-  globalSetup: "./global-setup/globalSetup.ts",
-  globalTeardown: "./global-teardown/globalTeardown.ts",
+  globalSetup: './global-setup/globalSetup.ts',
+  globalTeardown: './global-teardown/globalTeardown.ts',
 
   // Reporters
   reporter: [
-    ["list"], // console output during run
+    ['list'], // console output during run
     [
-      "html",
+      'html',
       {
-        outputFolder: "playwright-report",
-        open: "never",
+        outputFolder: 'playwright-report',
+        open: 'never',
       },
     ],
     [
-      "allure-playwright",
+      'allure-playwright',
       {
         detail: true,
-        outputFolder: "allure-results",
+        outputFolder: 'allure-results',
         suiteTitle: true,
         environmentInfo: {
           App_URL: BASE_URL,
@@ -59,24 +56,25 @@ export default defineConfig({
         },
       },
     ],
-    ...(IS_CI ? [["github"] as any] : []), // GitHub annotations in CI
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    ...(IS_CI ? [['github'] as any] : []), // GitHub annotations in CI
   ],
 
   // Shared settings for all tests
   use: {
     baseURL: BASE_URL,
     headless: HEADLESS,
-    screenshot: "only-on-failure",
-    video: "retain-on-failure",
-    trace: "retain-on-failure",
+    screenshot: 'only-on-failure',
+    video: 'retain-on-failure',
+    trace: 'retain-on-failure',
     actionTimeout: 15000,
     navigationTimeout: 30000,
-    locale: "en-US",
-    timezoneId: "America/Toronto",
+    locale: 'en-US',
+    timezoneId: 'America/Toronto',
   },
 
   // Output folers
-  outputDir: "test-results",
+  outputDir: 'test-results',
 
   // Browser projects
   projects: [
@@ -92,63 +90,63 @@ export default defineConfig({
     // },
     // Chromium (primary - all tests run here)
     {
-      name: "chromium",
+      name: 'chromium',
       use: {
-        ...devices["Desktop Chrome"],
-        storageState: "fixtures/auth/admin.json",
+        ...devices['Desktop Chrome'],
+        storageState: 'fixtures/auth/admin.json',
       },
       // dependencies: ["setup"],
     },
     // firefox (smoke + critical path only)
     {
-      name: "firefox",
+      name: 'firefox',
       use: {
-        ...devices["Desktop Firefox"],
-        storageState: "fixtures/auth/admin.json",
+        ...devices['Desktop Firefox'],
+        storageState: 'fixtures/auth/admin.json',
       },
     },
     // Webkit - Safari engine (smoke + critical path only)
     {
-      name: "webkit",
+      name: 'webkit',
       use: {
-        ...devices["Desktop Safari"],
-        storageState: "fixtures/auth/admin.json",
+        ...devices['Desktop Safari'],
+        storageState: 'fixtures/auth/admin.json',
       },
     },
     //  API tests projet (no browser needed)
     {
-      name: "api",
-      testMatch: "**/tests/api/**/*.spec.ts",
+      name: 'api',
+      testMatch: '**/tests/api/**/*.spec.ts',
       use: {
         baseURL: BASE_URL,
       },
     },
     // Accessibility tests project
     {
-      name: "accessibility",
-      testMatch: "**/tests/accessibility/**/*.spec.ts",
+      name: 'accessibility',
+      testMatch: '**/tests/accessibility/**/*.spec.ts',
       use: {
-        ...devices["Desktop Chrome"],
-        storageState: "fixtures/auth/admin.json",
+        ...devices['Desktop Chrome'],
+        storageState: 'fixtures/auth/admin.json',
       },
       // dependencies: ["setup"],
     },
     //  Visual regression project
     {
-      name: "visual",
-      testMatch: "**/tests/visual/**/*.spec.ts",
+      name: 'visual',
+      testMatch: '**/tests/visual/**/*.spec.ts',
       use: {
-        ...devices["Desktop Chrome"],
-        storageState: "fixtures/auth/admin.json",
+        ...devices['Desktop Chrome'],
+        storageState: 'fixtures/auth/admin.json',
       },
       // dependencies: ["setup"],
     },
     // Mobile Chrome viewport (reponsive testing)
     {
-      name: "mobile-chrome",
+      name: 'mobile-chrome',
       use: {
-        ...devices["Pixel 5"],
-        storageState: "fixtures/auth/admin.json",
+        ...devices['Pixel 5'],
+        storageState: 'fixtures/auth/admin.json',
       },
       // dependencies: ["setup"],
       grep: /@mobile/,
