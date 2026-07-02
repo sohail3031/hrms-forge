@@ -28,7 +28,8 @@
     "global-setup/**/*.ts",
     "global-teardown/**/*.ts",
     "components/**/*.ts",
-    "playwright.config.ts"
+    "playwright.config.ts",
+    "scripts/**/*.ts"
   ],
   "exclude": ["node_modules", "dist", "tests/performance"]
 }
