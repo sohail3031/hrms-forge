@@ -164,7 +164,8 @@ logs/
 .env.*.local
 
 # Auth State
-fixtures/auth/
+fixtures/auth/*.json
+!fixtures/auth/.gitkeep
 
 # TypeScript build output
 dist/

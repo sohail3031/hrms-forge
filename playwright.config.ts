@@ -1,6 +1,7 @@
 import { defineConfig, devices } from "@playwright/test";
 import * as dotenv from "dotenv";
 import * as path from "path";
+import * as fs from "fs";
 
 // Load environment variables
 dotenv.config({ path: path.resolve(__dirname, ".env") });
@@ -19,6 +20,12 @@ const AUTH_DIR = path.join(__dirname, "fixtures", "auth");
 const ADMIN_AUTH = path.join(AUTH_DIR, "admin.json");
 const ESS_AUTH = path.join(AUTH_DIR, "ess-user.json");
 const SUPERVISOR_AUTH = path.join(AUTH_DIR, "supervisor.json");
+
+// Only use storageState if the file exists
+// Before global setup runs, these  files do not exist yet
+const adminAuth = fs.existsSync(ADMIN_AUTH) ? ADMIN_AUTH : undefined;
+const essAuth = fs.existsSync(ESS_AUTH) ? ESS_AUTH : undefined;
+const supervisorAuth = fs.existsSync(SUPERVISOR_AUTH) ? SUPERVISOR_AUTH : undefined;
 
 // Export config
 export default defineConfig({
@@ -134,7 +141,7 @@ export default defineConfig({
       name: "chromium",
       use: {
         ...devices["Desktop Chrome"],
-        storageState: ADMIN_AUTH,
+        storageState: adminAuth,
         launchOptions: {
           args: [
             "--disable-web-security",
@@ -149,7 +156,7 @@ export default defineConfig({
       name: "firefox",
       use: {
         ...devices["Desktop Firefox"],
-        storageState: ADMIN_AUTH,
+        storageState: adminAuth,
       },
       grep: /@smoke|@crossbrowser/,
     },
@@ -158,7 +165,7 @@ export default defineConfig({
       name: "webkit",
       use: {
         ...devices["Desktop Safari"],
-        storageState: ADMIN_AUTH,
+        storageState: adminAuth,
       },
       grep: /@smoke|@crossbrowser/,
     },
@@ -180,7 +187,7 @@ export default defineConfig({
       testMatch: "**/tests/accessibility/**/*.spec.ts",
       use: {
         ...devices["Desktop Chrome"],
-        storageState: ADMIN_AUTH,
+        storageState: adminAuth,
       },
     },
     //  Visual regression project
@@ -189,7 +196,7 @@ export default defineConfig({
       testMatch: "**/tests/visual/**/*.spec.ts",
       use: {
         ...devices["Desktop Chrome"],
-        storageState: "fixtures/auth/admin.json",
+        storageState: adminAuth,
         // Consistent viewport for visual comparisons
         viewport: { width: 1200, height: 720 },
       },
@@ -200,7 +207,7 @@ export default defineConfig({
       testMatch: "**/tests/ui/leave/**/*.spec.ts",
       use: {
         ...devices["Desktop Chrome"],
-        storageState: ESS_AUTH,
+        storageState: essAuth,
       },
       grep: /@ess/,
     },
@@ -210,7 +217,7 @@ export default defineConfig({
       testMatch: "**/*tests/ui/leave/**/*.spec.ts",
       use: {
         ...devices["Desktop Chrome"],
-        storageState: SUPERVISOR_AUTH,
+        storageState: supervisorAuth,
       },
       grep: /@supervisor/,
     },
@@ -219,7 +226,7 @@ export default defineConfig({
       name: "mobile-chrome",
       use: {
         ...devices["Pixel 5"],
-        storageState: ADMIN_AUTH,
+        storageState: adminAuth,
       },
       grep: /@mobile/,
     },
