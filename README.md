@@ -42,7 +42,7 @@ mid-to-senior SDET skills across multiple testing dimensions.
 
 ## Test Coverage (Planned)
 
-| Module ------------------- | Tests   | Type          | Status     |
+| Module                     | Tests   | Type          | Status     |
 | -------------------------- | ------- | ------------- | ---------- |
 | Authentication             | 20      | UI + Security | 🔲 Planned |
 | Employee Management (PIM)  | 30      | UI + API      | 🔲 Planned |
