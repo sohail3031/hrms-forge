@@ -5,13 +5,22 @@ import * as path from "path";
 // Load environment variables
 dotenv.config({ path: path.resolve(__dirname, ".env") });
 
-// Environment helpers
+// Environment variable helpers
 const BASE_URL = process.env.BASE_URL || "https://opensource-demo.orangehrmlive.com";
+const API_BASE_URL =
+  process.env.API_BASE_URL || "https://opensource-demo.orangehrmlive.com/web/index.php/api/v2";
 const HEADLESS = process.env.HEADLESS !== "false";
 const WORKERS = process.env.WORKERS ? parseInt(process.env.WORKERS) : 4;
 const TIMEOUT = process.env.DEFAULT_TIME ? parseInt(process.env.DEFAULT_TIME) : 30000;
 const IS_CI = !!process.env.CI;
 
+// Auth state paths
+const AUTH_DIR = path.join(__dirname, "fixtures", "auth");
+const ADMIN_AUTH = path.join(AUTH_DIR, "admin.json");
+const ESS_AUTH = path.join(AUTH_DIR, "ess-user.json");
+const SUPERVISOR_AUTH = path.join(AUTH_DIR, "supervisor.json");
+
+// Export config
 export default defineConfig({
   // Test discovery
   testDir: "./tests",
@@ -35,7 +44,9 @@ export default defineConfig({
 
   // Reporters
   reporter: [
-    ["list"], // console output during run
+    // Console output during run
+    ["list"],
+    // Playwright HTML report
     [
       "html",
       {
@@ -43,75 +54,113 @@ export default defineConfig({
         open: "never",
       },
     ],
+    // Allure report
     [
       "allure-playwright",
       {
         detail: true,
         outputFolder: "allure-results",
         suiteTitle: true,
+        categories: [
+          {
+            name: "Product Bugs",
+            messagePatterns: [".*expected.*received.*"],
+          },
+          {
+            name: "Flaky Tests",
+            messagePatterns: [".*retry.*"],
+          },
+          {
+            name: "Infrastructure Issues",
+            messagePatterns: [".*timeout.*", ".*ECONNREFUSED.*"],
+          },
+        ],
         environmentInfo: {
           App_URL: BASE_URL,
+          API_URL: API_BASE_URL,
           Node_Version: process.version,
           Platform: process.platform,
+          Environment: process.env.ENVIRONMENT || "dev",
+          Headless: String(HEADLESS),
         },
       },
     ],
+    // GitHub Actions annotations
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ...(IS_CI ? [["github"] as any] : []), // GitHub annotations in CI
+    ...(IS_CI ? [["github"] as any] : []),
+    // JUnit XML
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    ...(IS_CI ? [["junit", { outputFile: "test-results/junit-results.xml" }]] : []),
   ],
 
   // Shared settings for all tests
   use: {
+    // URLs
     baseURL: BASE_URL,
+
+    // Browser
     headless: HEADLESS,
+    viewport: { width: 1280, height: 720 },
+    locale: "en-US",
+
+    // Canadian timezone
+    timezoneId: "America/Toronto",
+
+    // On failure - capture everything for debugging
     screenshot: "only-on-failure",
     video: "retain-on-failure",
     trace: "retain-on-failure",
+
+    // Timeouts
     actionTimeout: 15000,
     navigationTimeout: 30000,
-    locale: "en-US",
-    timezoneId: "America/Toronto",
+
+    // Extra HTTP headers for all requests
+    extraHTTPHeaders: {
+      "Accept-Language": "en-US,en;q=0.9",
+    },
+
+    // Ignore HTTPS errors
+    ignoreHTTPSErrors: true,
   },
 
-  // Output folers
+  // Output folder
   outputDir: "test-results",
 
   // Browser projects
   projects: [
-    // // Setup project (runs before all test projects)
-    // {
-    //   name: "setup",
-    //   testMatch: "**/global-setup/**/*.ts",
-    // },
-    // // Cleanup project (runs after all test projects)
-    // {
-    //   name: "cleaup",
-    //   testMatch: "**/global-teardown/**/*.ts",
-    // },
     // Chromium (primary - all tests run here)
     {
       name: "chromium",
       use: {
         ...devices["Desktop Chrome"],
-        storageState: "fixtures/auth/admin.json",
+        storageState: ADMIN_AUTH,
+        launchOptions: {
+          args: [
+            "--disable-web-security",
+            "--disable-features=IsolateOrigins",
+            "--disable-site-isolation-trials",
+          ],
+        },
       },
-      // dependencies: ["setup"],
     },
-    // firefox (smoke + critical path only)
+    // firefox (smoke + cross-browser)
     {
       name: "firefox",
       use: {
         ...devices["Desktop Firefox"],
-        storageState: "fixtures/auth/admin.json",
+        storageState: ADMIN_AUTH,
       },
+      grep: /@smoke|@crossbrowser/,
     },
     // Webkit - Safari engine (smoke + critical path only)
     {
       name: "webkit",
       use: {
         ...devices["Desktop Safari"],
-        storageState: "fixtures/auth/admin.json",
+        storageState: ADMIN_AUTH,
       },
+      grep: /@smoke|@crossbrowser/,
     },
     //  API tests projet (no browser needed)
     {
@@ -119,6 +168,10 @@ export default defineConfig({
       testMatch: "**/tests/api/**/*.spec.ts",
       use: {
         baseURL: BASE_URL,
+        extraHTTPHeaders: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
       },
     },
     // Accessibility tests project
@@ -127,9 +180,8 @@ export default defineConfig({
       testMatch: "**/tests/accessibility/**/*.spec.ts",
       use: {
         ...devices["Desktop Chrome"],
-        storageState: "fixtures/auth/admin.json",
+        storageState: ADMIN_AUTH,
       },
-      // dependencies: ["setup"],
     },
     //  Visual regression project
     {
@@ -138,17 +190,37 @@ export default defineConfig({
       use: {
         ...devices["Desktop Chrome"],
         storageState: "fixtures/auth/admin.json",
+        // Consistent viewport for visual comparisons
+        viewport: { width: 1200, height: 720 },
       },
-      // dependencies: ["setup"],
+    },
+    // ESS user project (leave + self-service tests)
+    {
+      name: "ess",
+      testMatch: "**/tests/ui/leave/**/*.spec.ts",
+      use: {
+        ...devices["Desktop Chrome"],
+        storageState: ESS_AUTH,
+      },
+      grep: /@ess/,
+    },
+    // Supervisor peroject (approval workflow tests)
+    {
+      name: "supervisor",
+      testMatch: "**/*tests/ui/leave/**/*.spec.ts",
+      use: {
+        ...devices["Desktop Chrome"],
+        storageState: SUPERVISOR_AUTH,
+      },
+      grep: /@supervisor/,
     },
     // Mobile Chrome viewport (reponsive testing)
     {
       name: "mobile-chrome",
       use: {
         ...devices["Pixel 5"],
-        storageState: "fixtures/auth/admin.json",
+        storageState: ADMIN_AUTH,
       },
-      // dependencies: ["setup"],
       grep: /@mobile/,
     },
   ],
