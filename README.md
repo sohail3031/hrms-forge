@@ -9,6 +9,8 @@
 ![Node](https://img.shields.io/badge/Node-20.x_LTS-green)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![ESLint](https://img.shields.io/badge/ESLint-8.x-purple)
+[![Smoke Tests](https://github.com/sohail3031/hrms-forge/actions/workflows/smoke.yml/badge.svg)](https://github.com/sohail3031/hrms-forge/actions/workflows/smoke.yml)
+[![Regression](https://github.com/sohail3031/hrms-forge/actions/workflows/regression.yml/badge.svg)](https://github.com/sohail3031/hrms-forge/actions/workflows/regression.yml)
 
 ## Overview
 
@@ -42,20 +44,20 @@ mid-to-senior SDET skills across multiple testing dimensions.
 
 ## Test Coverage (Planned)
 
-| Module                     | Tests   | Type          | Status     |
-| -------------------------- | ------- | ------------- | ---------- |
-| Authentication             | 20      | UI + Security | 🔲 Planned |
-| Employee Management (PIM)  | 30      | UI + API      | 🔲 Planned |
-| Leave Management           | 20      | UI + API      | 🔲 Planned |
-| Admin Module               | 12      | UI            | 🔲 Planned |
-| Dashboard                  | 5       | UI            | 🔲 Planned |
-| Directory                  | 5       | UI            | 🔲 Planned |
-| API Tests                  | 20      | API           | 🔲 Planned |
-| Integration Tests          | 8       | Hybrid        | 🔲 Planned |
-| Accessibility Tests        | 12      | axe-core      | 🔲 Planned |
-| Visual Regression          | 5       | Screenshot    | 🔲 Planned |
-| Performance (k6)           | 10      | Load/Stress   | 🔲 Planned |
-| **Total**                  | **147** |               |            |
+| Module                    | Tests   | Type          | Status     |
+| ------------------------- | ------- | ------------- | ---------- |
+| Authentication            | 20      | UI + Security | 🔲 Planned |
+| Employee Management (PIM) | 30      | UI + API      | 🔲 Planned |
+| Leave Management          | 20      | UI + API      | 🔲 Planned |
+| Admin Module              | 12      | UI            | 🔲 Planned |
+| Dashboard                 | 5       | UI            | 🔲 Planned |
+| Directory                 | 5       | UI            | 🔲 Planned |
+| API Tests                 | 20      | API           | 🔲 Planned |
+| Integration Tests         | 8       | Hybrid        | 🔲 Planned |
+| Accessibility Tests       | 12      | axe-core      | 🔲 Planned |
+| Visual Regression         | 5       | Screenshot    | 🔲 Planned |
+| Performance (k6)          | 10      | Load/Stress   | 🔲 Planned |
+| **Total**                 | **147** |               |            |
 
 ## Framework Architecture
 
