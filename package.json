@@ -27,7 +27,7 @@
     "lint:fix": "eslint . --ext .ts --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "type-ckeck": "tsc --noEmit",
+    "type-check": "tsc --noEmit",
     "clean": "rimraf allure-results allure-report playwright-report test-results log screenshots videos traces",
     "prepare": "husky",
     "verify:env": "ts-node scripts/verify-env.ts"
