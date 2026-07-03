@@ -1,0 +1,82 @@
+name: 🚀 Smoke Tests
+
+on:
+  push:
+    branches:
+      - "**" # Every push to every branch
+  workflow_dispatch: # Manual trigger from GitHub UI
+
+env:
+  NODE_VERSION: "20"
+
+jobs:
+  smoke:
+    name: Smoke Tests - Chromium
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      # Checkout
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      # Node.js
+      - name: ⚙️ Setup Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+
+      # Dependencies
+      - name: 📦 Install dependencies
+        run: npm ci
+
+      # Playwright browsers
+      - name: 🌐 Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      # Lint check
+      - name: 🔍 Run ESLint
+        run: npm run lint
+
+      # Type check
+      - name: 🔷 TypeScript type check
+        run: npm run type-check
+
+      # Smoke tests
+      - name: 🧪 Run smoke tests
+        run: npm run test:smoke
+        env:
+          BASE_URL: ${{ secrets.BASE_URL }}
+          API_BASE_URL: ${{ secrets.API_BASE_URL }}
+          ADMIN_USERNAME: ${{ secrets.ADMIN_USERNAME }}
+          ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+          HEADLESS: true
+          WORKERS: 2
+          ENVIRONMENT: ci
+          CI: true
+
+      # Upload results on failure
+      - name: 📊 Upload Playwright report on failre
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: smoke-playwright-report
+          path: playwright-report/
+          retention-days: 7
+
+      - name: 📊 Upload Allur results on failre
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: smoke-allure-results
+          path: allure-results/
+          retention-days: 7
+
+      - name: 📸 Upload screenshots on failure
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: smoke-screenshots
+          path: test-results/
+          retention-days: 7
