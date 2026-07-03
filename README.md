@@ -2,13 +2,14 @@
 
 > Enterprise-grade QA Automation Framework for OrangeHRM HRMS
 
-<!-- ![CI](https://github.com/sohail3031/hrms-forge/actions/workflows/smoke.yaml/badge.svg) -->
-
 ![Playwright](https://img.shields.io/badge/Playwright-1.40+-green)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue)
 ![Node](https://img.shields.io/badge/Node-20.x_LTS-green)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![ESLint](https://img.shields.io/badge/ESLint-8.x-purple)
+![CI](https://github.com/sohail3031/hrms-forge/actions/workflows/smoke.yaml/badge.svg)
+[![Smoke Tests](https://github.com/sohail3031/hrms-forge/actions/workflows/smoke.yml/badge.svg)](https://github.com/sohail3031/hrms-forge/actions/workflows/smoke.yml)
+[![Regression](https://github.com/sohail3031/hrms-forge/actions/workflows/regression.yml/badge.svg)](https://github.com/sohail3031/hrms-forge/actions/workflows/regression.yml)
 
 ## Overview
 
