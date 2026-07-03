@@ -98,10 +98,10 @@ jobs:
         with:
           script: |
             const conclusion = "${{ job.status }}";
-            const emoji = conclusion == ="success" ? "✅" : "❌";
+            const emoji = conclusion === "success" ? "✅" : "❌";
             const body = `## ${emoji} Regression Test Results;
 
-            **Status:** ${ conclustion.tpUpperCase() }
+            **Status:** ${conclusion.tpUpperCase()}
             **Branch:** \`${{ github.head_ref }}\`
             **Browser:** \`${{ github.event.inputs.browser || 'chromium' }}\`
             **Run:** [View Details](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
@@ -110,7 +110,7 @@ jobs:
 
             github.rest.issues.createComment({
                 issue_number: context.issue.number,
-                owner: context.repo.owner.
+                owner: context.repo.owner,
                 repo: context.repo.repo,
                 body: body
             });
