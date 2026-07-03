@@ -21,8 +21,11 @@ jobs:
         uses: actions/checkout@v4
 
       # Node.js
-      - name: ⚙️ Setup N ode.js ${{ env.NODE_VERSION }}
+      - name: ⚙️ Setup Node.js ${{ env.NODE_VERSION }}
         uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
 
       # Dependencies
       - name: 📦 Install dependencies

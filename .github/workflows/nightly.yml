@@ -44,8 +44,8 @@ jobs:
           ADMIN_USERNAME: ${{ secrets.ADMIN_USERNAME }}
           ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
           HEADLESS: true
-          WORKERS: 2,
-          ENVIRONMENT: ci,
+          WORKERS: 2
+          ENVIRONMENT: ci
           CI: true
 
       - name: 📊 Upload results - ${{ matrix.browser }}
@@ -86,7 +86,7 @@ jobs:
         env:
           BASE_URL: ${{ secrets.BASE_URL }}
           API_BASE_URL: ${{ secrets.API_BASE_URL }}
-          ADMIN_USERNAME: ${{ secrets.ADMIN_USENAME }}
+          ADMIN_USERNAME: ${{ secrets.ADMIN_USERNAME }}
           ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
           HEADLESS: true
           CI: true

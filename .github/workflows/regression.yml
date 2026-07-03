@@ -28,7 +28,7 @@ jobs:
     steps:
       # Checkout
       - name: 📥 Checkout repository
-        uses: actions/setup-node@v4
+        uses: actions/checkout-node@v4
 
       # Node.js
       - name: ⚙️ Setup Node.js ${{ env.NODE_VERSION }}
@@ -101,7 +101,7 @@ jobs:
             const emoji = conclusion === "success" ? "✅" : "❌";
             const body = `## ${emoji} Regression Test Results;
 
-            **Status:** ${conclusion.tpUpperCase()}
+            **Status:** ${conclusion.toUpperCase()}
             **Branch:** \`${{ github.head_ref }}\`
             **Browser:** \`${{ github.event.inputs.browser || 'chromium' }}\`
             **Run:** [View Details](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
