@@ -30,7 +30,7 @@ jobs:
 
       # Playwright browsers
       - name: 🌐 Install Playwright browsers
-        run: npx playwright install chromium --with-deps
+        run: npx playwright install --with-deps
 
       # Lint check
       - name: 🔍 Run ESLint
