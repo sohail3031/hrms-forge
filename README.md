@@ -9,8 +9,6 @@
 ![Node](https://img.shields.io/badge/Node-20.x_LTS-green)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![ESLint](https://img.shields.io/badge/ESLint-8.x-purple)
-[![Smoke Tests](https://github.com/sohail3031/hrms-forge/actions/workflows/smoke.yml/badge.svg)](https://github.com/sohail3031/hrms-forge/actions/workflows/smoke.yml)
-[![Regression](https://github.com/sohail3031/hrms-forge/actions/workflows/regression.yml/badge.svg)](https://github.com/sohail3031/hrms-forge/actions/workflows/regression.yml)
 
 ## Overview
 
