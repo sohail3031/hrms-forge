@@ -28,7 +28,7 @@ jobs:
     steps:
       # Checkout
       - name: 📥 Checkout repository
-        uses: actions/checkout-node@v4
+        uses: actions/checkout@v4
 
       # Node.js
       - name: ⚙️ Setup Node.js ${{ env.NODE_VERSION }}
