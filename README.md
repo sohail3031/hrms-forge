@@ -164,16 +164,24 @@ npm run verify:env
 
 ## Project Status
 
-| Phase   | Description          | Status         |
-| ------- | -------------------- | -------------- |
-| Phase 1 | Infrastructure Setup | ✅ Complete    |
-| Phase 2 | CI/CD Pipeline       | 🔄 In Progress |
-| Phase 3 | Documentation        | 🔲 Planned     |
-| Phase 4 | Jira Setup           | ✅ Complete    |
-| Phase 5 | Framework Foundation | 🔲 Planned     |
-| Phase 6 | Authentication Tests | 🔲 Planned     |
-| Phase 7 | PIM Tests            | 🔲 Planned     |
-| Phase 8 | API Tests            | 🔲 Planned     |
+| Phase    | Description                  | Status      |
+| -------- | ---------------------------- | ----------- |
+| Phase 0  | Infrastructure Setup         | ✅ Complete |
+| Phase 1  | CI/CD Pipeline               | ✅ Complete |
+| Phase 2  | Documentation Commit         | 🔄 Next     |
+| Phase 3  | Jira Setup                   | ✅ Complete |
+| Phase 4  | Framework Foundation         | 🔲 Planned  |
+| Phase 5  | Authentication Tests         | 🔲 Planned  |
+| Phase 6  | PIM Tests                    | 🔲 Planned  |
+| Phase 7  | API Tests                    | 🔲 Planned  |
+| Phase 8  | Leave Management Tests       | 🔲 Planned  |
+| Phase 9  | Admin + Dashboard Tests      | 🔲 Planned  |
+| Phase 10 | Accessibility Tests          | 🔲 Planned  |
+| Phase 11 | Visual Regression            | 🔲 Planned  |
+| Phase 12 | Performance Tests (k6)       | 🔲 Planned  |
+| Phase 13 | Cross-browser + Optimization | 🔲 Planned  |
+| Phase 14 | Reporting + CI Hardening     | 🔲 Planned  |
+| Phase 15 | Portfolio Polish             | 🔲 Planned  |
 
 ## Documentation
 
