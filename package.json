@@ -18,6 +18,9 @@
     "test:firefox": "playwright test --project=firefox",
     "test:webkit": "playwright test --project=webkit",
     "test:mobile": "playwright test --project=mobile-chrome",
+    "test:project:api": "playwright test --project=api",
+    "test:project:a11y": "playwright test --project=accessibility",
+    "test:project:visual": "playwright test --project=visual",
     "test:headed": "playwright test --headed",
     "test:debug": "playwright test --debug",
     "test:ui": "playwright test --ui",
@@ -30,7 +33,12 @@
     "type-check": "tsc --noEmit",
     "clean": "rimraf allure-results allure-report playwright-report test-results log screenshots videos traces",
     "prepare": "husky",
-    "verify:env": "ts-node scripts/verify-env.ts"
+    "verify:env": "ts-node scripts/verify-env.ts",
+    "docker:build": "docker build -f docker/Dockerfile -t hrms-forge:latest .",
+    "docker:smoke": "docker-compose -f docker/docker-compose.yml run --rm smoke",
+    "docker:regression": "docker-compose -f docker/docker-compose.yml run --rm regression",
+    "docker:api": "docker-compose -f docker/docker-compose.yml run --rm api",
+    "docker:clean": "docker-compose -f doccker/docker-compose.yml down --rmi local"
   },
   "lint-staged": {
     "*.ts": [

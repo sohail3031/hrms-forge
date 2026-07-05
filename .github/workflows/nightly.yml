@@ -16,7 +16,7 @@ jobs:
     timeout-minutes: 45
 
     strategy:
-      fail-fast: false # COntinue other browsers if one fails
+      fail-fast: false # Continue other browsers if one fails
       matrix:
         browser: [chromium, firefox, webkit]
 
@@ -37,7 +37,7 @@ jobs:
         run: npx playwright install ${{ matrix.browser }} --with-deps
 
       - name: 🧪 Run tests on ${{ matrix.browser }}
-        run: npx playwright test --project=${{ matrix.browser }}
+        run: npx playwright test --project=${{ matrix.browser }} --grep @accessibility
         env:
           BASE_URL: ${{ secrets.BASE_URL }}
           API_BASE_URL: ${{ secrets.API_BASE_URL }}

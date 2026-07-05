@@ -128,6 +128,25 @@ npm run test:headed
 npm run test:debug
 ```
 
+### Running With Docker
+
+```bash
+# Build the Docker image
+npm run docker:build
+
+# Run smoke tests in Docker
+npm run docker:smoke
+
+# Run regression suite in Docker
+npm run docker:regression
+
+# Run API tests in Docker
+npm run docker:api
+
+# Clean up Docker resources
+npm run docker:clean
+```
+
 ### Reporting
 
 ```bash

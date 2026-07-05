@@ -1,18 +1,97 @@
 version: "3.8"
 
+# =========================================
+# HRMS Forge - Docker Compose Configuration
+# =========================================
+
 services:
-  playwright-tests:
+  # Smoke tests
+  smoke:
     build:
       context: ..
       dockerfile: docker/Dockerfile
+    container_name: hrms-forge-smoke
     environment:
       - BASE_URL=${BASE_URL}
+      - API_BASE_URL=${API_BASE_URL}
       - ADMIN_USERNAME=${ADMIN_USERNAME}
       - ADMIN_PASSWORD=${ADMIN_PASSWORD}
       - HEADLESS=true
       - CI=true
+      - WORKERS=2
+      - ENVIRONMENT=ci
     volumes:
       - ../allure-results:/app/allure-results
       - ../playwright-report:/app/playwright-report
       - ../test-results:/app/test-results
-    command: npx playwright test --project=chromium
+    command: npm run test:smoke
+    networks:
+      - test-network
+
+  # Regression tests
+  regression:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: hrms-forge-regression
+    environment:
+      - BASE_URL=${BASE_URL}
+      - API_BASE_URL=${API_BASE_URL}
+      - ADMIN_USERNAME=${ADMIN_USERNAME}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      - HEADLESS=true
+      - CI=true
+      - WORKERS=2
+      - ENVIRONMENT=ci
+    volumes:
+      - ../allure-results:/app/allure-results
+      - ../playwright-report:/app/playwright-report
+      - ../test-results:/app/test-results
+    command: npm run test:regression
+    networks:
+      - test-network
+
+  # API tests
+  api:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: hrms-forge-api
+    environment:
+      - BASE_URL=${BASE_URL}
+      - API_BASE_URL=${API_BASE_URL}
+      - ADMIN_USERNAME=${ADMIN_USERNAME}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      - CI=true
+      - ENVIRONMENT=ci
+    volumes:
+      - ../allure-results:/app/allure-results
+      - ../test-results:/app/test-results
+    command: npm run test:api
+    networks:
+      - test-network
+
+  # Accessibility tests
+  accessibility:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: hrms-forge-a11y
+    environment:
+      - BASE_URL=${BASE_URL}
+      - API_BASE_URL=${API_BASE_URL}
+      - ADMIN_USERNAME=${ADMIN_USERNAME}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      - HEADLESS=true
+      - CI=true
+      - ENVIRONMENT=ci
+    volumes:
+      - ../allure-results:/app/allure-results
+      - ../test-results:/app/test-results
+    command: npm run accessibility
+    networks:
+      - test-network
+
+networks:
+  test-network:
+    driver: bridge

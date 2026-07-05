@@ -31,6 +31,11 @@ jobs:
       - name: 📦 Install dependencies
         run: npm ci
 
+      # Verify Docker build
+      - name: 🐳 Verify Docker Build
+        run: docker build -f docker/Dockerfile -t hrms-forge:latest .
+        if: github.ref == 'refs/heads/main'
+
       # Playwright browsers
       - name: 🌐 Install Playwright browsers
         run: npx playwright install --with-deps
