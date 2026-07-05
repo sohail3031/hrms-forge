@@ -1,9 +1,42 @@
+# Dependencies
 node_modules/
+
+# Git
 .git/
+.gitignore
+.gitattributes
+
+# Generated output
 allure-results/
 allure-reports/
 playwright-report/
 test-results/
 logs/
+
+# Auth state
+fixtures/auth/.*json
+
+# Environment files
 .env
-fixtures/auth/
+.env.local
+
+# Docker files
+docker/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumds.db
+
+#Documentation
+docs/
+*.node_modules
+
+# Scripts
+scripts/
+
+# k6 performnce tests
+tests/performance/
