@@ -11,7 +11,7 @@ env:
 jobs:
   # Cross-browser matrix
   cross-browser:
-    name: Tests - ${{ matrix.browser }}
+    name: Tests — ${{ matrix.browser }}
     runs-on: ubuntu-latest
     timeout-minutes: 45
 
@@ -30,14 +30,14 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: "npm"
 
-      - name: 📦Install depencencies
+      - name: 📦 Install dependencies
         run: npm ci
 
       - name: 🌐 Install Playwright browsers
         run: npx playwright install ${{ matrix.browser }} --with-deps
 
       - name: 🧪 Run tests on ${{ matrix.browser }}
-        run: npx playwright test --project=${{ matrix.browser }} --grep @accessibility
+        run: npx playwright test --project=${{ matrix.browser }}
         env:
           BASE_URL: ${{ secrets.BASE_URL }}
           API_BASE_URL: ${{ secrets.API_BASE_URL }}
@@ -48,7 +48,7 @@ jobs:
           ENVIRONMENT: ci
           CI: true
 
-      - name: 📊 Upload results - ${{ matrix.browser }}
+      - name: 📊 Upload results — ${{ matrix.browser }}
         uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -78,7 +78,7 @@ jobs:
       - name: 📦 Install dependencies
         run: npm ci
 
-      - name: 🌐 Install playwright browser
+      - name: 🌐 Install Playwright browsers
         run: npx playwright install chromium --with-deps
 
       - name: ♿ Run accessibility tests
@@ -96,7 +96,7 @@ jobs:
         if: always()
         with:
           name: nightly-accessibility-results
-          path: allure-results
+          path: allure-results/
           retention-days: 30
 
   # Nightly summary notification
@@ -105,8 +105,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: [cross-browser, accessibility]
     if: always()
+
     steps:
-      - name: 📢 Nightly run sumamry
+      - name: 📢 Nightly run summary
         run: |
           echo "Nightly run complete"
           echo "Cross-browser: ${{ needs.cross-browser.result }}"

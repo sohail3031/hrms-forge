@@ -152,7 +152,7 @@ screenshots/
 
 # Allure
 allure-results/
-allure-reports
+allure-reports/
 
 # Logs
 logs/

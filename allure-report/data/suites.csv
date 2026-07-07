@@ -1,0 +1,8 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","0","@smoke Home page opens @accessibility","webkit","2026-07-04","skipped","2026-07-04","","temp.spec.ts","",""
+"","5046","@smoke Home page opens","firefox","2026-07-03","passed","2026-07-03","","temp.spec.ts","",""
+"","6037","@smoke Home page opens","webkit","2026-07-03","passed","2026-07-03","","temp.spec.ts","",""
+"","4031","@smoke Home page opens","chromium","2026-07-03","passed","2026-07-03","","temp.spec.ts","",""
+"","0","@smoke Home page opens @accessibility","firefox","2026-07-04","skipped","2026-07-04","","temp.spec.ts","",""
+"","3914","verify allure reporter captures test metadata","chromium","2026-07-07","passed","2026-07-07","Allure Reporter Verification @smoke","ui\auth\temp-allure-test.spec.ts","",""
+"","1","@smoke Home page opens @accessibility","chromium","2026-07-04","skipped","2026-07-04","","temp.spec.ts","",""

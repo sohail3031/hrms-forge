@@ -181,6 +181,12 @@ npm run verify:env
 | Pull request to main | Full regression             | < 20 min |
 | Nightly 2AM          | Cross-browser + Performance | < 45 min |
 
+## Live Test Report
+
+📊 [View Latest Allure Report](https://sohail3031.github.io/hrms-forge/)
+
+> Report is auto-published after every nightly test run
+
 ## Project Status
 
 | Phase    | Description                  | Status      |
