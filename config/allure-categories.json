@@ -1,0 +1,27 @@
+[
+  {
+    "name":"🐛 Product Bugs",
+    "messageRegex": ".*expected.*|.*AssertionError.*|.*received.*",
+    "matchedStatuses":["failed"]
+  },
+  {
+    "name":"⚡ Infrastructure Issues",
+    "messageRegex":".*timeout.*|.*ECONNREFUSED.*|.*net::ERR.*|.*Navigation.*failed.*",
+    "matchedStatuses": ["failed", "broken"]
+  },
+  {
+    "name":"🔄 Flaky Tests",
+    "messageRegex":".*retry.*|.*flaky.*",
+    "matchedStatuses": ["failed"]
+  },
+  {
+    "name": "⚠️ Missing Test Data",
+    "messageRegex": ",*not found.*|.*does not exists.*|.*No reords.*",
+    "matchedStatuses": ["failed", "broken"]
+  },
+  {
+    "name": "🔐 Authentication Issues",
+    "messageRegex": ".*401.*|.*403.*|.*Unauthorized.*|.*session.*",
+    "matchedStatuses": ["failed", "broken"]
+  }
+]
