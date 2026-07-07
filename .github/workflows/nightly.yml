@@ -82,7 +82,7 @@ jobs:
         run: npx playwright install chromium --with-deps
 
       - name: ♿ Run accessibility tests
-        run: npm run test:accessibility
+        run: npx playwright test --grep @accessibility --project=chromium
         env:
           BASE_URL: ${{ secrets.BASE_URL }}
           API_BASE_URL: ${{ secrets.API_BASE_URL }}

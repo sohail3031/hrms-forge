@@ -50,7 +50,7 @@ jobs:
 
       # Smoke tests
       - name: 🧪 Run smoke tests
-        run: npm run test:smoke
+        run: npx playwright test --grep @smoke --project=chromium
         env:
           BASE_URL: ${{ secrets.BASE_URL }}
           API_BASE_URL: ${{ secrets.API_BASE_URL }}
