@@ -60,7 +60,7 @@ jobs:
 
       # Regression tests
       - name: 🧪 Run regression suite
-        run: npx playwright test --project=${{ github.event.inputs.browser || 'chromium' }}
+        run: npx playwright test --project=chromium
         env:
           BASE_URL: ${{ secrets.BASE_URL }}
           API_BASE_URL: ${{ secrets.API_BASE_URL }}
