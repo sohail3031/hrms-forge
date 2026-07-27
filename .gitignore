@@ -201,3 +201,7 @@ tests/performance/k6/results/
 
 # Docker
 docker/*.log
+
+# Excel temp files
+~$*.xlsx
+~$*.xls
