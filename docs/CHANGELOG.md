@@ -51,4 +51,31 @@ Format follows [Keep a Changelog](https://keepachangelog.com).
 
 ---
 
+## [0.2.0-documentation] - Sprint 0 Phase 2
+
+### Added
+
+- /docs folder with complete project documentation
+- Business Requirements Document (RRD.md)
+- Software Requirements Specification (SRS.md)
+- Test Strategy document (TEST_STRATEGY.md)
+- Framework Architecture document (ARCHITECTURE.md)
+- Bug Reports document (BUG_REPORTS.md) - 25 bugs
+- Master Test Cases Excel (TEST_CASES.xlsx) - 150+ scenarios
+- Changelog (CHANGELOG.md)
+- Sprint 0 review notes
+- Sprint 1 planning notes
+- CONTRIBUTING.md in project root
+- Permanent login page smoke test (CI health)
+- Permanent accessibility placeholder test (CI health)
+
+### Changed
+
+- README.md updated with complete setup guide
+- nightly.yml fixed - accessibility job pinned to chromium
+- package.json scripts updated for consistency
+- .gitignore updated for Excel temp files
+
+---
+
 _HRMSForge — Enterprise QA Automation Framework_
