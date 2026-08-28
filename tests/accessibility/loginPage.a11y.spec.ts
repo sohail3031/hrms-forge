@@ -1,6 +1,8 @@
 import { test, expect } from "@playwright/test";
 
 test.describe("Login Page - Accessibility @accessibility", () => {
+  test.use({ storageState: { cookies: [], origins: [] } });
+
   test.beforeEach(async ({ page }) => {
     // Navigate to login page before each test
     await page.goto("/web/index.php/auth/login");

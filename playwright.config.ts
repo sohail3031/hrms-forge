@@ -202,7 +202,7 @@ export default defineConfig({
       testMatch: "**/tests/accessibility/**/*.spec.ts",
       use: {
         ...devices["Desktop Chrome"],
-        storageState: adminAuth,
+        // storageState: adminAuth,
       },
     },
     //  Visual regression project
