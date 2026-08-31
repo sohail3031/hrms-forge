@@ -4,7 +4,7 @@ import * as path from "path";
 // Load .env file
 dotenv.config({ path: path.resolve(process.cwd(), ".env") });
 
-// Environemnt configuration object
+// Environment configuration object
 export const ENV = {
   // Application URLs
   BASE_URL: process.env.BASE_URL || "https://opensource-demo.orangehrmlive.com",
@@ -12,7 +12,7 @@ export const ENV = {
     process.env.API_BASE_URL || "https://opensource-demo.orangehrmlive.com/web/index.php/api/v2",
 
   // Admin credentials
-  ADMIN_USERNAME: process.env.ADMIN_USENAME || "Admin",
+  ADMIN_USERNAME: process.env.ADMIN_USERNAME || "Admin",
   ADMIN_PASSWORD: process.env.ADMIN_PASSWORD || "admin123",
 
   // Test execution settings
@@ -30,7 +30,7 @@ export const ENV = {
   AUTH: {
     ADMIN: "fixtures/auth/admin.json",
     ESS: "fixtures/auth/ess-user.json",
-    SUPERVISOR: "frixtures/auth/supervisor.json",
+    SUPERVISOR: "fixtures/auth/supervisor.json",
   },
 
   // API endpoints
@@ -38,7 +38,7 @@ export const ENV = {
     LOGIN: "/web/index.php/api/v2/auth/login",
     EMPLOYEES: "/web/index.php/api/pim/employees",
     LEAVE: "/web/index.php/api/v2/leave/leaveRequests",
-    LEAVVE_TYPES: "/web/index.php/api/v2/leave/leaveTypes",
+    LEAVE_TYPES: "/web/index.php/api/v2/leave/leaveTypes",
     USERS: "/web/index.php/api/v2/admin/users",
   },
 
