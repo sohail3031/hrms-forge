@@ -205,3 +205,6 @@ docker/*.log
 # Excel temp files
 ~$*.xlsx
 ~$*.xls
+
+# Runtime cleanup data
+fixtures/auth/cleanup.json

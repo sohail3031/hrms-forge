@@ -8,6 +8,7 @@ const AUTH_DIR = path.join(process.cwd(), "fixtures", "auth");
 const ADMIN_AUTH_FILE = path.join(AUTH_DIR, "admin.json");
 const ESS_AUTH_FILE = path.join(AUTH_DIR, "ess-user.json");
 const SUPERVISOR_AUTH_FILE = path.join(AUTH_DIR, "supervisor.json");
+const CLEANUP_FILE = path.join(process.cwd(), "fixtures", "auth", "cleanup.json");
 const TEST_ESS_USER = {
   firstName: "Test",
   lastName: "ESSUser",
@@ -146,7 +147,7 @@ async function authenticateUser(
   }
 }
 
-async function createAndAuthenticateESSUser(adminContext: BrowserContext): Promise<void> {
+async function createAndAuthenticateESSUser(adminContext: BrowserContext): Promise<number> {
   log.info("Setting up ESS user...");
 
   const empNumber = await createEmployee(adminContext, { ...TEST_ESS_USER });
@@ -154,9 +155,11 @@ async function createAndAuthenticateESSUser(adminContext: BrowserContext): Promi
   await authenticateUser(TEST_ESS_USER.username, TEST_ESS_USER.password, ESS_AUTH_FILE);
 
   log.info("ESS user ready");
+
+  return empNumber;
 }
 
-async function createAndAuthenticateSupervisor(adminContext: BrowserContext): Promise<void> {
+async function createAndAuthenticateSupervisor(adminContext: BrowserContext): Promise<number> {
   log.info("Setting up Supervisor user...");
 
   const empNumber = await createEmployee(adminContext, {
@@ -180,6 +183,8 @@ async function createAndAuthenticateSupervisor(adminContext: BrowserContext): Pr
   );
 
   log.info("Supervisor user ready");
+
+  return empNumber;
 }
 
 async function globalSetup(config: FullConfig): Promise<void> {
@@ -190,10 +195,11 @@ async function globalSetup(config: FullConfig): Promise<void> {
   }
 
   const { context, browser } = await authenticateAdmin();
+  let essEmpNumber: number, supervisorEmpNumber: number;
 
   try {
-    await createAndAuthenticateESSUser(context);
-    await createAndAuthenticateSupervisor(context);
+    essEmpNumber = await createAndAuthenticateESSUser(context);
+    supervisorEmpNumber = await createAndAuthenticateSupervisor(context);
   } catch (error) {
     log.error("Global setup failed", { error });
     throw error;
@@ -202,6 +208,17 @@ async function globalSetup(config: FullConfig): Promise<void> {
     await browser.close();
   }
 
+  const cleanupData = {
+    essEmpNumber: essEmpNumber,
+    supervisorEmpNumber: supervisorEmpNumber,
+    empUsername: TEST_ESS_USER.username,
+    supervisorUsername: TEST_SUPERVISOR_USER.username,
+    createdAt: Date.now(),
+  };
+
+  fs.writeFileSync(CLEANUP_FILE, JSON.stringify(cleanupData, null, 2));
+
+  console.log("Cleanup data saved: " + CLEANUP_FILE);
   console.log("✅ Global setup complete");
 }
 
