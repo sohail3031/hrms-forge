@@ -1,0 +1,25 @@
+{
+    "$schema": "https://json-schema.org/draft-07/schema#",
+    "title": "LoginResponse",
+    "description": "EXPECTED schema for POST /auth/login response IF OrangeHRM's REST API v2 supported username/password token login. NOT CURRENTLY VALID: confirmed via direct curl testing that this endpoint returns HTTP 404 on the public OrangeHRM demo (opensource-demo.orangehrmlive.com) — REST API v2 uses OAuth2 authentication, not a JSON token-login endpoint. This schema is kept for documentation purposes only, in case OrangeHRM adds a working token endpoint in future, or as a reference if pointing this framework at a self-hosted instance with OAuth2 configured. See AuthApiClient.login() for the corresponding test method, which asserts against the ACTUAL (404) response, not this schema. Real authentication in this framework uses cookie/session-based login via authHelper.ts's authenticateAdmin(), not a bearer token.",
+    "type": "object",
+    "required": ["data"],
+    "properties": {
+        "data": {
+            "type": "object",
+            "required": ["token", "tokenType"],
+            "properties": {
+                "token": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "JWT bearer token — would be returned by a working token-login endpoint (none currently exists on this instance)"
+                },
+                "tokenType": {
+                    "type": "string",
+                    "enum": ["Bearer"],
+                    "description": "Token type - always Bearer"
+                }
+            }
+        }
+    }
+}

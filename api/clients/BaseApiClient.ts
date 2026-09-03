@@ -136,13 +136,25 @@ export abstract class BaseApiClient {
   }
 
   protected async parseResponse<T>(response: APIResponse): Promise<ApiResponse<T>> {
-    const body = await response.json();
+    let body: Record<string, unknown> = {};
+
+    try {
+      body = await response.json();
+    } catch {
+      const rawText = await response.text();
+
+      log.debug("Response body was not valid JSON", { status: response.status(), rawText });
+
+      body = { message: rawText || `Non-JSON response (status ${response.status()})` };
+    }
 
     return {
       status: response.status(),
-      data: body.data,
-      total: body.meta?.total,
-      message: body.error?.message || body.message,
+      data: body.data as T,
+      total: (body.meta as Record<string, unknown>)?.total as number | undefined,
+      message:
+        ((body.error as Record<string, unknown>)?.message as string | undefined) ||
+        (body.message as string | undefined),
     };
   }
 
