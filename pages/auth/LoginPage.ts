@@ -92,9 +92,7 @@ export class LoginPage extends BasePage {
   }
 
   async isPasswordMasked(): Promise<boolean> {
-    const inputType = await this.passwordInput.getAttribute("type");
-
-    return inputType === "password";
+    return await this.passwordInput.getAttribute("type").then(type => type === "password");
   }
 
   async clearUsernameField(): Promise<void> {
