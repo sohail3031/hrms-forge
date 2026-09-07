@@ -153,6 +153,8 @@ screenshots/
 # Allure
 allure-results/
 allure-reports/
+test-results/
+playwright-report/
 
 # Logs
 logs/
