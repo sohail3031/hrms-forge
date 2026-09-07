@@ -1,4 +1,4 @@
-import { FullConfig, chromium, request, BrowserContext, Browser } from "@playwright/test";
+import { FullConfig, chromium, BrowserContext, Browser } from "@playwright/test";
 import * as path from "path";
 import * as fs from "fs";
 import { ENV } from "../config/environment";
@@ -24,33 +24,33 @@ const TEST_SUPERVISOR_USER = {
   employeeId: "S" + Date.now().toString().slice(-6),
 };
 
-async function getAdminToken(): Promise<string> {
-  const apiContext = await request.newContext({ baseURL: ENV.BASE_URL });
+// async function getAdminToken(): Promise<string> {
+//   const apiContext = await request.newContext({ baseURL: ENV.BASE_URL });
 
-  try {
-    const response = await apiContext.post(ENV.ENDPOINTS.LOGIN, {
-      data: {
-        username: ENV.ADMIN_USERNAME,
-        password: ENV.ADMIN_PASSWORD,
-      },
-    });
+//   try {
+//     const response = await apiContext.post(ENV.ENDPOINTS.LOGIN, {
+//       data: {
+//         username: ENV.ADMIN_USERNAME,
+//         password: ENV.ADMIN_PASSWORD,
+//       },
+//     });
 
-    if (!response.ok()) {
-      throw new Error("Admin login failed: " + response.status());
-    }
+//     if (!response.ok()) {
+//       throw new Error("Admin login failed: " + response.status());
+//     }
 
-    const body = await response.json();
+//     const body = await response.json();
 
-    log.info("Admin token obtained");
+//     log.info("Admin token obtained");
 
-    return body.data.token;
-  } catch (error) {
-    log.error("Get Admin Token Failed: ", { error });
-    throw error;
-  } finally {
-    await apiContext.dispose();
-  }
-}
+//     return body.data.token;
+//   } catch (error) {
+//     log.error("Get Admin Token Failed: ", { error });
+//     throw error;
+//   } finally {
+//     await apiContext.dispose();
+//   }
+// }
 
 async function authenticateAdmin(): Promise<{ context: BrowserContext; browser: Browser }> {
   log.info("Authenticating Admin...");
@@ -187,7 +187,7 @@ async function createAndAuthenticateSupervisor(adminContext: BrowserContext): Pr
   return empNumber;
 }
 
-async function globalSetup(config: FullConfig): Promise<void> {
+async function globalSetup(_config: FullConfig): Promise<void> {
   console.log("🚀 Global setup starting...");
 
   if (!fs.existsSync(AUTH_DIR)) {
