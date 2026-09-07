@@ -20,7 +20,7 @@ export class LoginPage extends BasePage {
   private readonly loginForm = this.page.locator(".orangehrm-login-form");
   private readonly orangehrmLogo = this.page.locator(".orangehrm-login-logo");
   private readonly usernameError = this.page.locator(".oxd-input-field-error-message").first();
-  private readonly passwordError = this.page.locator(".oxd-input-field-error-message").nth(1);
+  private readonly passwordError = this.page.locator(".oxd-input-field-error-message").first();
 
   async navigateToLoginPage(): Promise<void> {
     log.info("Navigating to login page");

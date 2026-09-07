@@ -152,7 +152,7 @@ screenshots/
 
 # Allure
 allure-results/
-allure-reports/
+allure-report/
 test-results/
 playwright-report/
 
@@ -210,3 +210,7 @@ docker/*.log
 
 # Runtime cleanup data
 fixtures/auth/cleanup.json
+allure-report/
+allure-results/
+test-results/
+playwright-report/
