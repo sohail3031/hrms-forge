@@ -129,7 +129,10 @@ async function authenticateUser(
   const page = await context.newPage();
 
   try {
-    await page.goto(ENV.BASE_URL + "/web/index.php/auth/login");
+    await page.goto(ENV.BASE_URL + "/web/index.php/auth/login", {
+      timeout: 60000,
+      waitUntil: "domcontentloaded",
+    });
     await page.getByPlaceholder("Username").fill(username);
     await page.getByPlaceholder("Password").fill(password);
     await page.getByRole("button", { name: "Login" }).click();
