@@ -25,15 +25,12 @@ export class DashboardPage extends BasePage {
 
   async logout(): Promise<void> {
     log.step(1, "Click user dropdown");
-
     await this.click(this.userDropdownToggle, "User dropdown toggle");
 
     log.step(2, "Click logout menu item");
+    await this.logoutMenuItem.click({ timeout: ENV.TIMEOUTS.ACTION });
 
-    await Promise.all([
-      this.page.waitForURL("**/auth/login**", { timeout: ENV.TIMEOUTS.NAVIGATION }),
-      this.logoutMenuItem.click(),
-    ]);
+    await this.page.waitForURL("**/auth/login**", { timeout: ENV.TIMEOUTS.NAVIGATION });
 
     log.info("Logout successful - redirecting to login");
   }

@@ -33,7 +33,7 @@ test.describe("Authentication - Login @auth", () => {
   });
 
   test.afterEach(async ({ page }) => {
-    await page.goto(ENV.BASE_URL + "/web/index.php/auth/logout");
+    // await page.goto(ENV.BASE_URL + "/web/index.php/auth/logout");
   });
 
   // TC-AUTH-001 - Valid Admin Login
