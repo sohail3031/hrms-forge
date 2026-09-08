@@ -30,8 +30,10 @@ export class DashboardPage extends BasePage {
 
     log.step(2, "Click logout menu item");
 
-    await this.click(this.logoutMenuItem, "Logout menu item");
-    await this.page.waitForURL("**/auth/login**", { timeout: ENV.TIMEOUTS.NAVIGATION });
+    await Promise.all([
+      this.page.waitForURL("**/auth/login**", { timeout: ENV.TIMEOUTS.NAVIGATION }),
+      this.logoutMenuItem.click(),
+    ]);
 
     log.info("Logout successful - redirecting to login");
   }
