@@ -54,34 +54,6 @@ test.describe("Authentication - Login @auth", () => {
     await expect(page.locator(".oxd-userdropdown-name")).toBeVisible();
   });
 
-  // TC-AUTH-002 - Invalid Password
-  // test("should show error message with invalid password @regression @auth", async ({ page }) => {
-  //   // ACT
-  //   await loginPage.login(ENV.ADMIN_USERNAME, "wrongpassword123");
-
-  //   // ASSERT
-  //   await expect(page.locator(".oxd-alert-content-text")).toBeVisible();
-
-  //   const errorText = await loginPage.getErrorMessage();
-
-  //   expect(errorText).toContain("Invalid credentials");
-  //   await expect(page).toHaveURL(/auth\/login/i);
-  // });
-
-  // TC-AUTH-003 - Invalid Username
-  // test("should show error message with invalid username @regression @auth", async ({ page }) => {
-  //   // ACT
-  //   await loginPage.login("nonexistent_user_xyz", ENV.ADMIN_PASSWORD);
-
-  //   // ASSERT
-  //   await expect(page.locator(".oxd-alert-content-text")).toBeVisible();
-
-  //   const errorText = await loginPage.getErrorMessage();
-
-  //   expect(errorText).toContain("Invalid credentials");
-  //   await expect(page).toHaveURL(/auth\/login/i);
-  // });
-
   // Data-Driven Approach for TC-AUTH-002 and 003
   for (const { description, username, password } of invalidCredentials) {
     test(`should show error message with ${description} @regression @auth`, async ({ page }) => {
@@ -142,5 +114,64 @@ test.describe("Authentication - Login @auth", () => {
     const passwordError = await loginPage.getPasswordValidationError();
 
     expect(passwordError).toContain("Required");
+  });
+
+  // TC-AUTH-007 - SQL Injection in Username
+  test("should not allow sql injection in username field @regression @auth", async ({ page }) => {
+    // ACT
+    await loginPage.login("' OR 1=1 --", "anypassword");
+
+    // ASSERT
+    const error = await loginPage.getErrorMessage();
+
+    expect(error).toContain("Invalid credentials");
+    await expect(page).toHaveURL(/auth\/login/i);
+  });
+
+  // TC-AUTH-008 - XSS Payload in Username
+  test("should sanitize xss payload in username field @regression @security @auth", async ({
+    page,
+  }) => {
+    // ACT
+    await loginPage.login("<script>alert('xss')</script>", "anypassword");
+
+    // ASSERT
+    const error = await loginPage.getErrorMessage();
+
+    expect(error).toContain("Invalid credentials");
+    await expect(page).toHaveTitle(/OrangeHRM/i);
+  });
+
+  // TC-AUTH-011 - Password Field Is Masked
+  test("should mask password input field @regression @auth", async ({ page }) => {
+    // ASSERT
+    const isMasked = await loginPage.isPasswordMasked();
+
+    expect(isMasked).toBeTruthy();
+  });
+
+  // TC-AUTH-012 - Login Page Loads Within 3 Seconds
+  test("should load login page within 3 seconds @regression @performance @auth", async ({
+    page,
+  }) => {
+    // ACT
+    const startTime = Date.now();
+
+    await page.goto(ENV.BASE_URL + "/web/index.php/auth/login", { waitUntil: "domcontentloaded" });
+
+    const endTime = Date.now();
+    const loadTime = endTime - startTime;
+
+    // ASSERT
+    expect(loadTime).toBeLessThan(3000);
+    await expect(page.locator(".orangehrm-login-form")).toBeVisible();
+  });
+
+  // Login Page Renders Correctly Across Browsers
+  test("login page renders correctly across browsers @crossbrowser @auth", async ({ page }) => {
+    await expect(page).toHaveTitle(/OrangeHRM/i);
+    await expect(page.locator(".orangehrm-login-form")).toBeVisible();
+    await expect(page.getByPlaceholder("Username")).toBeVisible();
+    await expect(page.getByPlaceholder("Password")).toBeVisible();
   });
 });
