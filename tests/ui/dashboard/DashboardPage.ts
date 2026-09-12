@@ -28,7 +28,8 @@ export class DashboardPage extends BasePage {
     await this.click(this.userDropdownToggle, "User dropdown toggle");
 
     log.step(2, "Click logout menu item");
-    await this.logoutMenuItem.click({ timeout: ENV.TIMEOUTS.ACTION });
+    await this.logoutMenuItem.waitFor({ state: "visible" });
+    await this.logoutMenuItem.click({ force: true, timeout: ENV.TIMEOUTS.ACTION });
 
     await this.page.waitForURL("**/auth/login**", { timeout: ENV.TIMEOUTS.NAVIGATION });
 
