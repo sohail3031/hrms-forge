@@ -1,5 +1,6 @@
 import { Locator, Page } from "@playwright/test";
 import { log } from "../utils/logger";
+import { ENV } from "../config/environment";
 
 export class NavigationMenu {
   private readonly moduleName: string = "Navigation";
@@ -113,7 +114,10 @@ export class NavigationMenu {
   }
 
   async getVisibleMenuItems(): Promise<string[]> {
-    const links = this.page.locator(".oxd-main-menu-item-name");
+    const links = this.page.locator(".oxd-main-menu-item");
+
+    await links.first().waitFor({ state: "visible", timeout: ENV.TIMEOUTS.DEFAULT });
+
     const itemCount = await links.count();
     const items: string[] = [];
 
