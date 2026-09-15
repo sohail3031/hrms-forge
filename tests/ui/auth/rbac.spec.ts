@@ -5,13 +5,12 @@ import { ENV } from "../../../config/environment";
 import { log } from "../../../utils/logger";
 import * as fs from "fs";
 import * as path from "path";
-import { LoginPage } from "../../../pages/auth/LoginPage";
 
 const ESS_AUTH_FILE = path.join(process.cwd(), "fixtures", "auth", "ess-user.json");
 
 test.describe("Authentication - RBAC @auth", () => {
+  // eslint-disable-next-line playwright/no-skipped-test -- conditional skip: only fires when ESS auth fixture is genuinely missing (e.g. fresh clone before global setup has run)
   test.skip(!fs.existsSync(ESS_AUTH_FILE), "ESS auth state not found - run global setup first");
-
   test.use({ storageState: "fixtures/auth/ess-user.json" });
 
   let dashboardPage: DashboardPage;
@@ -23,23 +22,10 @@ test.describe("Authentication - RBAC @auth", () => {
 
     await dashboardPage.navigate();
     await page.waitForLoadState("domcontentloaded");
-
-    // const loaded = await dashboardPage.isDashboardLoaded();
-
-    // if (!loaded) {
-    //   await page.screenshot({ path: "debug-ess-dashboard-load-failure.png", fullPage: true });
-    // }
-
-    // expect(
-    //   loaded,
-    //   "ESS dashboard failed to load — session may be stale, re-run global setup"
-    // ).toBeTruthy();
   });
 
   // TC-AUTH-016 - ESS User Cannot See Admin Navigation
-  test("should not show admin navigation items to ess user @regression @security @auth", async ({
-    page,
-  }) => {
+  test("should not show admin navigation items to ess user @regression @security @auth", async () => {
     // ACT
     const visibleItems = await navMenu.getVisibleMenuItems();
 

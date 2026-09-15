@@ -29,6 +29,8 @@ export class DashboardPage extends BasePage {
 
     log.step(2, "Click logout menu item");
     await this.logoutMenuItem.waitFor({ state: "visible" });
+
+    // eslint-disable-next-line playwright/no-force-option -- dropdown menu
     await this.logoutMenuItem.click({ force: true, timeout: ENV.TIMEOUTS.ACTION });
 
     await this.page.waitForURL("**/auth/login**", { timeout: ENV.TIMEOUTS.NAVIGATION });
