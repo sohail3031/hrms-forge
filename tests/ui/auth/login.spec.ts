@@ -32,12 +32,8 @@ test.describe("Authentication - Login @auth", () => {
     await expect(page.locator(".orangehrm-login-form")).toBeVisible();
   });
 
-  test.afterEach(async ({ page }) => {
-    // await page.goto(ENV.BASE_URL + "/web/index.php/auth/logout");
-  });
-
   // TC-AUTH-001 - Valid Admin Login
-  test("should login successfully with valid admin credentials @smoke @critical", async ({
+  test("should login successfully with valid admin credentials @smoke @critical @auth", async ({
     page,
   }): Promise<void> => {
     void allure.feature("Authentication");
@@ -117,7 +113,9 @@ test.describe("Authentication - Login @auth", () => {
   });
 
   // TC-AUTH-007 - SQL Injection in Username
-  test("should not allow sql injection in username field @regression @auth", async ({ page }) => {
+  test("should not allow sql injection in username field @regression @security @auth", async ({
+    page,
+  }) => {
     // ACT
     await loginPage.login("' OR 1=1 --", "anypassword");
 
@@ -143,7 +141,7 @@ test.describe("Authentication - Login @auth", () => {
   });
 
   // TC-AUTH-011 - Password Field Is Masked
-  test("should mask password input field @regression @auth", async ({ page }) => {
+  test("should mask password input field @regression @auth", async () => {
     // ASSERT
     const isMasked = await loginPage.isPasswordMasked();
 
