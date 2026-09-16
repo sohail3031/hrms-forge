@@ -179,17 +179,18 @@ Saves ~2 seconds per test × 147 tests = ~5 minutes saved per run.
 
 ### Test Status
 
-| Phase | Module                 | Status             |
-| ----- | ---------------------- | ------------------ |
-| ✅    | Infrastructure + CI/CD | Complete           |
-| 🔄    | Framework Foundation   | In Progress        |
-| 🔲    | Authentication Tests   | Planned — Sprint 1 |
-| 🔲    | PIM Tests              | Planned — Sprint 1 |
-| 🔲    | API Tests              | Planned — Sprint 2 |
-| 🔲    | Leave Management       | Planned — Sprint 2 |
-| 🔲    | Admin Tests            | Planned — Sprint 3 |
-| 🔲    | Accessibility Tests    | Planned — Sprint 3 |
-| 🔲    | Performance Tests      | Planned — Sprint 3 |
+| Phase | Module                     | Status      |
+| ----- | -------------------------- | ----------- |
+| ✅    | Infrastructure + CI/CD     | Complete    |
+| ✅    | Documentation              | Complete    |
+| ✅    | Framework Foundation       | Complete    |
+| ✅    | Authentication Tests (~19) | Complete    |
+| 🔄    | Employee Management (PIM)  | In Progress |
+| 🔲    | Leave Management           | Planned     |
+| 🔲    | Admin Module               | Planned     |
+| 🔲    | API Tests                  | Planned     |
+| 🔲    | Accessibility Tests        | Planned     |
+| 🔲    | Performance Tests          | Planned     |
 
 ---
 
