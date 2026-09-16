@@ -78,38 +78,56 @@ Format follows [Keep a Changelog](https://keepachangelog.com).
 
 ---
 
-## [0.3.0-auth] - Sprint 1 Week 1
+## [0.3.0-auth] — Sprint 1 Week 1
 
 ### Added
 
-- pages/base/BasePage.ts - abstract base for all POMs
-- utils/logger.ts - Winston structured logging
-- components/NavigationMenu.ts, Toast.ts, Modal.ts
-- global-setup/globalSetup.ts - real multi-role auth
-- global-teardown/globalTeardown.ts - test data cleanup
-- utils/authHelper.ts - shared auth utility
-- helpers/testDataFactory.ts - faker-based data generation
-- api/clients/BaseApiClient.ts - HTTP abstraction layer
-- api/clients/AuthApiClient.ts - auth API client
-- pages/auth/LoginPage.ts - first page object
-- pages/dashboard/DashboardPage.ts - minimal dashboard POM
-- tests/ui/auth/login.spec.ts - 11 auth tests
-- tests/ui/auth/logout.spec.ts - 3 auth tests
-- tests/ui/auth/session.spec.ts - 3 auth tests
-- tests /ui/auth/rbac.spec.ts - 2 auth tests
+**Framework Foundation (Steps 26-31)**
+
+- utils/logger.ts — Winston structured logging
+  (console + file transport, log.step/action/assert)
+- pages/base/BasePage.ts — abstract base for all POMs
+  (24 methods covering nav, wait, interact, toast, dialog)
+- components/NavigationMenu.ts — OrangeHRM side nav
+- components/Toast.ts — toast notification handler
+- components/Modal.ts — confirmation modal handler
+- global-setup/globalSetup.ts — real multi-role auth
+  (Admin + ESS + Supervisor via API then browser)
+- global-teardown/globalTeardown.ts — test data cleanup
+- utils/authHelper.ts — shared getAdminToken()
+- helpers/testDataFactory.ts — faker-based data
+  (employee, credentials, leave, personal, contact, emergency)
+- api/clients/BaseApiClient.ts — HTTP abstraction
+- api/clients/AuthApiClient.ts — auth API client
+- api/schemas/auth.schema.json
+
+**Auth Page Objects (Step 32)**
+
+- pages/auth/LoginPage.ts — 15 methods, 9 locators
+- pages/dashboard/DashboardPage.ts — minimal version
+
+**Auth Tests (Steps 33-38)**
+
+- tests/ui/auth/login.spec.ts — TC-AUTH-001 to 012
+- tests/ui/auth/logout.spec.ts — TC-AUTH-009,010,015
+- tests/ui/auth/session.spec.ts — TC-AUTH-018,019,020
+- tests/ui/auth/rbac.spec.ts — TC-AUTH-016,017
 
 ### Fixed
 
 - Removed afterEach logout causing test flakiness
-- Fixed accessibility test redirect with storageState clear
-- Fixed nightly workflow accessibility job browser install
+- Fixed accessibility test redirect (storageState clear)
+- Fixed nightly workflow (accessibility pinned to chromium)
+- Husky v10 deprecated shell lines removed
 
-### Technical Decisions
+### Patterns Established
 
-- test.use() storageState pattern for role switching
+- test.use() storageState clear for unauthenticated tests
 - Negative tests use login() not loginAndWaitForDashboard()
+- No afterEach logout — Playwright context isolation
 - test.fixme() for known OrangeHRM demo limitations
-- test.skip() for missing prerequisites auth files
+- test.skip() for missing prerequisite files
+- ESS storageState via test.use() override per file
 
 ---
 
