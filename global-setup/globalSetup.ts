@@ -9,48 +9,21 @@ const ADMIN_AUTH_FILE = path.join(AUTH_DIR, "admin.json");
 const ESS_AUTH_FILE = path.join(AUTH_DIR, "ess-user.json");
 const SUPERVISOR_AUTH_FILE = path.join(AUTH_DIR, "supervisor.json");
 const CLEANUP_FILE = path.join(process.cwd(), "fixtures", "auth", "cleanup.json");
+const runIdentifier = process.env.GITHUB_JOB || Math.random().toString(36).slice(2, 6);
 const TEST_ESS_USER = {
   firstName: "Test",
   lastName: "ESSUser",
-  username: "test.ess." + Date.now(),
+  username: "test.ess." + Date.now() + "." + runIdentifier,
   password: "Test@1234",
-  employeeId: "E" + Date.now().toString().slice(-6),
+  employeeId: "E" + Date.now().toString().slice(-6) + runIdentifier.slice(0, 2).toUpperCase(),
 };
 const TEST_SUPERVISOR_USER = {
   firstName: "Test",
   lastName: "Supervisor",
-  username: "test.sup." + Date.now(),
+  username: "test.sup." + Date.now() + "." + runIdentifier,
   password: "Test@12345",
-  employeeId: "S" + Date.now().toString().slice(-6),
+  employeeId: "S" + Date.now().toString().slice(-6) + runIdentifier.slice(0, 2).toUpperCase(),
 };
-
-// async function getAdminToken(): Promise<string> {
-//   const apiContext = await request.newContext({ baseURL: ENV.BASE_URL });
-
-//   try {
-//     const response = await apiContext.post(ENV.ENDPOINTS.LOGIN, {
-//       data: {
-//         username: ENV.ADMIN_USERNAME,
-//         password: ENV.ADMIN_PASSWORD,
-//       },
-//     });
-
-//     if (!response.ok()) {
-//       throw new Error("Admin login failed: " + response.status());
-//     }
-
-//     const body = await response.json();
-
-//     log.info("Admin token obtained");
-
-//     return body.data.token;
-//   } catch (error) {
-//     log.error("Get Admin Token Failed: ", { error });
-//     throw error;
-//   } finally {
-//     await apiContext.dispose();
-//   }
-// }
 
 async function authenticateAdmin(): Promise<{ context: BrowserContext; browser: Browser }> {
   log.info("Authenticating Admin...");
@@ -70,7 +43,7 @@ async function authenticateAdmin(): Promise<{ context: BrowserContext; browser: 
 
   await page.close();
 
-  return { context, browser }; // caller now owns cleanup
+  return { context, browser };
 }
 
 async function createEmployee(
@@ -84,10 +57,12 @@ async function createEmployee(
 
   if (!response.ok()) {
     const errorBody = await response.text();
+
     throw new Error(`Create employee failed: ${response.status()} — ${errorBody}`);
   }
 
   const body = await response.json();
+
   log.info("Employee created: " + data.firstName);
 
   return body.data.empNumber as number;
@@ -154,6 +129,7 @@ async function createAndAuthenticateESSUser(adminContext: BrowserContext): Promi
   log.info("Setting up ESS user...");
 
   const empNumber = await createEmployee(adminContext, { ...TEST_ESS_USER });
+
   await createUser(adminContext, empNumber, TEST_ESS_USER.username, TEST_ESS_USER.password, 2);
   await authenticateUser(TEST_ESS_USER.username, TEST_ESS_USER.password, ESS_AUTH_FILE);
 
